@@ -11,6 +11,16 @@ from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler, StandardScaler
 
 def get_agg_features(dfs,f1,f2,agg,log):    
+    '''
+    获取聚合特征(user)
+    agg_features+=get_agg_features([train_df,test_df],'user_id','','size',click_log)
+    
+    Arguments:
+    --------
+    
+    Returns:
+    --------
+    '''
     #判定特殊情况
     if type(f1)==str:
         f1=[f1]
@@ -55,6 +65,11 @@ def get_agg_features(dfs,f1,f2,agg,log):
 
 
 def sequence_text(dfs,f1,f2,log):
+    '''
+    获取序列特征，用户点击的id序列
+    
+    text_features+=sequence_text([train_df,test_df],'user_id','ad_id',click_log)
+    '''
     f_name='sequence_text_'+f1+'_'+f2
     print(f_name)
     #遍历log，获得用户的点击序列
@@ -155,9 +170,9 @@ def kfold_sequence(train_df,test_df,log_data,pivot):
 
 if __name__ == "__main__":
     #读取数据
-    click_log=pd.read_pickle('data/click.pkl')
-    train_df=pd.read_pickle('data/train_user.pkl')
-    test_df=pd.read_pickle('data/test_user.pkl')
+    click_log=pd.read_pickle('data/click.pkl') # all features and user age, gender
+    train_df=pd.read_pickle('data/train_user.pkl') # only user age, gender
+    test_df=pd.read_pickle('data/test_user.pkl') # only user age, gender
     print(click_log.shape,train_df.shape,test_df.shape)
     ################################################################################
     #获取聚合特征
@@ -196,6 +211,9 @@ if __name__ == "__main__":
     ################################################################################
     #获取K折统计特征，求出用户点击的所有记录的年龄性别平均分布
     #赋值index,训练集为0-4，测试集为5
+    
+    # 2020/08/13 到这！！！！！！！！！！！！！
+    
     print("Extracting Kflod feature...")
     log=click_log.drop_duplicates(['user_id','creative_id']).reset_index(drop=True)
     del click_log
