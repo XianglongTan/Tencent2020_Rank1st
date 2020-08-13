@@ -49,6 +49,6 @@ if __name__ == "__main__":
     click_df,train_user,test_user=merge_files() 
     #保存预处理文件
     print("preprocess done! saving data...")
-    click_df.to_pickle("data/click.pkl")
-    train_user.to_pickle("data/train_user.pkl")
-    test_user.to_pickle("data/test_user.pkl")
+    click_df.to_pickle("data/click.pkl") # all item features and user age, gender
+    train_user.to_pickle("data/train_user.pkl") # user age, gender
+    test_user.to_pickle("data/test_user.pkl") # user age, gender
