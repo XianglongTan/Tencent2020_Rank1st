@@ -99,7 +99,14 @@ def sequence_text(dfs,f1,f2,log):
     return [f_name]
 
 def kfold(train_df,test_df,log_data,pivot):
+    '''
     #先对log做kflod统计，统计每条记录中pivot特征的性别年龄分布
+    #赋值index,训练集为0-4，测试集为5
+    
+    kfold(train_df,test_df,log,pivot)
+    log = click_log.drop_duplicates(['user_id','creative_id']).reset_index(drop=True)
+    for pivot in ['creative_id','ad_id','product_id','advertiser_id','industry']
+    '''
     kfold_features=['age_{}'.format(i) for i in range(10)]+['gender_{}'.format(i) for i in range(2)]
     log=log_data[kfold_features+['user_id',pivot,'fold']]
     tmps=[]
@@ -114,6 +121,10 @@ def kfold(train_df,test_df,log_data,pivot):
     del tmps
     gc.collect() 
     #获得用户点击的所有记录的平均性别年龄分布
+    
+    ######
+    # 2020/08/17 到这！！！！！！
+    #####
     tmp_mean = pd.DataFrame(tmp.groupby('user_id')[kfold_features].mean()).reset_index()
     tmp_mean.columns=['user_id']+[f+'_'+pivot+'_mean' for f in kfold_features]
     for df in [train_df,test_df]:
