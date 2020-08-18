@@ -141,7 +141,15 @@ def kfold(train_df,test_df,log_data,pivot):
 
 
 def kfold_sequence(train_df,test_df,log_data,pivot): 
+    '''
     #先对log做kflod统计，统计每条记录中pivot特征的性别年龄分布
+    #获取K折序列特征,求出用户点击的每一条记录的年龄性别分布
+    #赋值index,训练集为0-4，测试集为5
+    
+    for pivot in ['creative_id','ad_id','product_id','advertiser_id','industry']:
+        print("Kfold sequence",pivot)
+        kfold_sequence_features+=kfold_sequence(train_df,test_df,log,pivot) 
+    '''
     kfold_features=['age_{}'.format(i) for i in range(10)]+['gender_{}'.format(i) for i in range(2)]
     log=log_data[kfold_features+[pivot,'fold','user_id']]
     tmps=[]
@@ -181,7 +189,7 @@ def kfold_sequence(train_df,test_df,log_data,pivot):
 
 if __name__ == "__main__":
     #读取数据
-    click_log=pd.read_pickle('data/click.pkl') # all features and user age, gender
+    click_log=pd.read_pickle('data/click.pkl') # all features and user age(binary), gender(binary)
     train_df=pd.read_pickle('data/train_user.pkl') # only user age, gender
     test_df=pd.read_pickle('data/test_user.pkl') # only user age, gender
     print(click_log.shape,train_df.shape,test_df.shape)
