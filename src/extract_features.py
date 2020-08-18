@@ -10,6 +10,8 @@ from gensim.models import Word2Vec
 from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler, StandardScaler
 
+# TODO: 总结有哪些新特征被提取
+
 def get_agg_features(dfs,f1,f2,agg,log):    
     '''
     获取聚合特征(user)
