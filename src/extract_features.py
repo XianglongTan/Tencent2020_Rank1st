@@ -11,6 +11,10 @@ from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler, StandardScaler
 
 # TODO: 总结有哪些新特征被提取
+# 1. get_agg_features: 每个 user 在 click_log 某 id 的统计值
+# 2. sequence_text: 每个 user 在 click_log 某 id 的序列
+# 3. kflod: 每个 user 点击过的 id 的 other fold 年龄性别分布特征的均值
+# 4. kflod_sequence: 每个 user 点击过的 id 的 other fold 年龄性别分布特征的序列特征
 
 def get_agg_features(dfs,f1,f2,agg,log):    
     '''
@@ -102,7 +106,8 @@ def sequence_text(dfs,f1,f2,log):
 
 def kfold(train_df,test_df,log_data,pivot):
     '''
-    #先对log做kflod统计，统计每条记录中pivot特征的性别年龄分布
+    # 先对log做kflod统计，统计每条记录中pivot特征的性别年龄分布
+    # 最后对 user 统计这些分布特征的 mean
     #赋值index,训练集为0-4，测试集为5
     
     kfold(train_df,test_df,log,pivot)
