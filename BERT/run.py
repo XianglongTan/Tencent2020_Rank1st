@@ -54,6 +54,12 @@ MODEL_CLASSES = {
     'roberta': (RobertaConfig, RobertaModel, RobertaTokenizer),
 }
 
+###
+# 2020/08/19！
+###
+
+# TODO: 看看 from torch.utils.data import DataLoader, Dataset, SequentialSampler, RandomSampler,TensorDataset
+
 class TextDataset(Dataset):
     def __init__(self, args,df,embedding_table):
         self.text_features=[df[x[1]].values for x in args.text_features]
